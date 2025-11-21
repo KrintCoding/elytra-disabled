@@ -1,0 +1,18 @@
+# Message when trying to equip elytra
+equip_blocked: "&cYou cannot equip elytra in this world!"
+
+# Message when trying to glide
+glide_blocked: "&cElytra flying is disabled in this world!"
+
+# Message when elytra is automatically removed
+removed_on_enter: "&eYour elytra has been removed upon entering this world."
+
+# Messages when reloading plugin
+reload_success: "&a&l[ElytraDisabled]&r &aConfiguration successfully reloaded!"
+reload_error: "&c&l[ElytraDisabled]&r &cError reloading configuration!"
+
+# Command help message
+help_reload: "&e/elytra-disabled reload &8- &7Reload configuration"
+
+# No permission message
+no_permission: "&cYou don't have permission to use this command!"

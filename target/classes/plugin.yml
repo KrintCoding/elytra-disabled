@@ -1,0 +1,19 @@
+name: ElytraDisabled
+version: '1.0'
+main: ua.krint.elytraDisabled.ElytraDisabled
+author: Krint
+api-version: '1.20'
+
+commands:
+  elytra-disabled:
+    description: Главная команда плагина
+    usage: /<command> reload
+    aliases: [elytradisabled, edisabled]
+
+permissions:
+  elytradisabled.bypass:
+    description: Позволяет обходить все ограничения плагина
+    default: op
+  elytradisabled.reload:
+    description: Позволяет перезагружать конфигурацию
+    default: op
