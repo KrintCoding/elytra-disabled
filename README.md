@@ -65,5 +65,5 @@ permissions:
   # Players with this permission can use elytra in any worlds
   bypass: "elytradisabled.bypass"
 ```
-## Video
-https://youtu.be/0RfcnuwPMrI
+# Video
+[![Video](https://img.youtube.com/vi/0RfcnuwPMrI/hqdefault.jpg)](https://www.youtube.com/embed/0RfcnuwPMrI)
