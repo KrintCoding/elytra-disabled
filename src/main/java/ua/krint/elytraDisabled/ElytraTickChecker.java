@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
@@ -32,6 +31,12 @@ public class ElytraTickChecker {
         }
     }
 
+    public void cleanUpCooldowns() {
+        long now = System.currentTimeMillis();
+        long cooldown = plugin.getConfig().getLong("settings.message_cooldown", 3000);
+        messageCooldowns.entrySet().removeIf(entry -> (now - entry.getValue()) > cooldown * 2);
+    }
+
     private boolean sendMessageWithCooldown(Player p, String message) {
         UUID uuid = p.getUniqueId();
         long now = System.currentTimeMillis();
@@ -48,44 +53,27 @@ public class ElytraTickChecker {
     }
 
     private void check() {
+        if (Bukkit.getOnlinePlayers().isEmpty()) return;
+
         for (Player p : Bukkit.getOnlinePlayers()) {
-
-            if (Bukkit.getOnlinePlayers().isEmpty()) return;
-
             if (plugin.hasBypass(p)) continue;
-
             if (!plugin.isWorldDisabled(p.getWorld())) continue;
 
-            PlayerInventory inv = p.getInventory();
+            boolean forceUnequip = plugin.getConfig().getBoolean("settings.force_unequip_on_enter", true);
+            boolean stopGlide = plugin.getConfig().getBoolean("settings.stop_existing_glide", true);
 
-            ItemStack chest = inv.getChestplate();
-            if (chest != null && chest.getType() == Material.ELYTRA) {
-                inv.setChestplate(null);
-
-                if (inv.firstEmpty() != -1) {
-                    inv.addItem(chest);
-                } else {
-                    p.getWorld().dropItemNaturally(p.getLocation(), chest);
+            if (forceUnequip) {
+                ItemStack chestplate = p.getInventory().getChestplate();
+                if (chestplate != null && chestplate.getType() == Material.ELYTRA) {
+                    plugin.removeElytra(p, null);
                 }
-
-                if (p.isGliding()) {
-                    p.setGliding(false);
-                }
-
-                p.setMetadata("elytra_removed_recently",
-                        new org.bukkit.metadata.FixedMetadataValue(plugin, true));
-
-                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
-                    if (p.isOnline()) {
-                        p.removeMetadata("elytra_removed_recently", plugin);
-                    }
-                }, 60L);
             }
 
-            if (p.isGliding()) {
+            if (stopGlide && p.isGliding()) {
                 p.setGliding(false);
-
-                sendMessageWithCooldown(p, plugin.getMessage("glide_blocked"));
+                if (!forceUnequip) {
+                    sendMessageWithCooldown(p, plugin.getMessage("glide_blocked"));
+                }
             }
         }
     }
