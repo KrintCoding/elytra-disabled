@@ -2,7 +2,9 @@
   ![plugin-fon](https://github.com/user-attachments/assets/5aa6f542-ebd8-4ba2-82da-d542b66d6ce6)
 
 **ElytraDisabled** - A comprehensive solution for controlling elytra usage on your server. The plugin completely disables elytra in specified worlds, providing maximum protection against bypasses.
+
 https://modrinth.com/plugin/elytra-disabled
+
 **Features**:
 
 - Complete blocking of equipping and flying with elytra
