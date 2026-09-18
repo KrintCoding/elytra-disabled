@@ -1,5 +1,5 @@
 name: ElytraDisabled
-version: '1.2.1'
+version: '1.2.2'
 main: ua.krint.elytraDisabled.ElytraDisabled
 author: Krint
 api-version: '1.18'
