@@ -7,8 +7,8 @@
 #
 # equip_blocked:
 #   - '[type="title",title_times="10:40:10",sound="minecraft:entity.villager.no;1.0;1.0"]'
-#   - '&cYOOOOOK!'
-#   - '&7Olmaz kardeşim elytra kullanamazsın'
+#   - '&cEngellendi!'
+#   - '&7Bu dünyada elytra kuşanmak yasaktır'
 #
 # type: chat (varsayılan) / actionbar / title
 # title_times: "görünme:kalma:kaybolma" tik cinsinden (20 tik = 1 saniye), sadece title için
@@ -26,17 +26,17 @@
 # Elytra takmaya çalışırken gösterilen mesaj
 equip_blocked:
   - '[type="title",title_times="10:40:10",sound="minecraft:entity.villager.no;1.0;1.0"]'
-  - '&cYOOOOOK!'
-  - '&7Olmaz kardeşim elytra kullanamazsın'
+  - '&cEngellendi!'
+  - '&7Bu dünyada elytra kuşanmak yasaktır'
 
 # Uçmaya çalışırken gösterilen mesaj
 glide_blocked:
   - '[type="title",title_times="10:40:10",sound="minecraft:entity.villager.no;1.0;1.0"]'
-  - '&cYOOOOOK!'
-  - '&7Olmaz kardeşim elytra kullanamazsın'
+  - '&cEngellendi!'
+  - '&7Bu dünyada elytra ile uçuş devre dışıdır'
 
 # Elytra otomatik olarak çıkarıldığında gösterilen mesaj
-removed_on_enter: "&eUsagım bu dünyada elitra kullanımı yasak ates devrinden devam ediyorsun"
+removed_on_enter: "&eBu dünyaya giriş yaptığınız için elytranız envanterinize alındı."
 
 # Eklenti yeniden yüklenirken gösterilen mesajlar
 reload_success: "&a&l[ElytraDisabled]&r &aYapılandırma başarıyla yeniden yüklendi!"

@@ -7,7 +7,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityToggleGlideEvent;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
@@ -73,9 +75,42 @@ public class ElytraListener implements Listener {
             }
         }
 
+        if (e.getClick() == ClickType.NUMBER_KEY && e.getSlotType() == InventoryType.SlotType.ARMOR) {
+            int hotbarButton = e.getHotbarButton();
+            if (hotbarButton >= 0 && hotbarButton < 9) {
+                ItemStack hotbarItem = p.getInventory().getItem(hotbarButton);
+                if (hotbarItem != null && hotbarItem.getType() == Material.ELYTRA) {
+                    e.setCancelled(true);
+                    warn(p, "equip_blocked");
+                    return;
+                }
+            }
+        }
+
         if (e.getClick().name().contains("SWAP") && current != null && current.getType() == Material.ELYTRA) {
             e.setCancelled(true);
             warn(p, "equip_blocked");
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onInventoryDrag(InventoryDragEvent e) {
+        if (!(e.getWhoClicked() instanceof Player)) return;
+        Player p = (Player) e.getWhoClicked();
+
+        if (plugin.hasBypass(p)) return;
+        if (!plugin.isWorldDisabled(p.getWorld())) return;
+        if (!plugin.isPreventEquip()) return;
+
+        ItemStack oldCursor = e.getOldCursor();
+        if (oldCursor == null || oldCursor.getType() != Material.ELYTRA) return;
+
+        for (int rawSlot : e.getRawSlots()) {
+            if (e.getView().getSlotType(rawSlot) == InventoryType.SlotType.ARMOR) {
+                e.setCancelled(true);
+                warn(p, "equip_blocked");
+                return;
+            }
         }
     }
 
